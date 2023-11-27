@@ -10,4 +10,12 @@ from itemadapter import ItemAdapter
 
 class PropertyscraperPipeline:
     def process_item(self, item, spider):
+
+        adapter = ItemAdapter(item)
+
+        #removing all the whitespace from returned data and removing \n's
+        propertyFieldName = adapter.field_names()
+        for fieldName in propertyFieldName:
+            value = adapter.get(fieldName)
+            adapter[fieldName] = value.strip().replace("\n", "")
         return item
