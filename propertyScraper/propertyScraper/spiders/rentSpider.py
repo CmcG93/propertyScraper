@@ -1,15 +1,16 @@
 import scrapy
-from propertyScraper.items import PropertyItemWebOneSale
+from propertyScraper.items import PropertyItemWebOneRent
 
 
 class PropertyspiderSpider(scrapy.Spider):
     name = "propertySpider"
     allowed_domains = ["www.property.ie", "www.daft.ie"]
     # can add multipe URL's here for spider to crawl through
-    start_urls = ["https://www.property.ie/property-for-sale/ireland/price_international_rental-onceoff_standard/"]
+    start_urls = ["https://www.property.ie/property-to-let/property-to-let/ireland/"]
+
     def parse(self, response):
         properties = response.css('div.search_result')
-        propertyItem = PropertyItemWebOneSale()
+        propertyItem = PropertyItemWebOneRent()
         
         for property in properties:
             propertyItem["address"] = property.css("h2 a::text").get()
@@ -26,10 +27,9 @@ class PropertyspiderSpider(scrapy.Spider):
         for pageNumber in range(totalPages):
             ++pageNumber
             if next_page is not None:
-                next_page_url = "https://www.property.ie/property-for-sale/ireland/price_international_rental-onceoff_standard/p_" + str(pageNumber)
+                next_page_url = "https://www.property.ie/property-to-let/ireland/price_international_rental-onceoff_standard/p_" + str(pageNumber)
             else:
                 break
             yield response.follow(next_page_url, callback=self.parse)
-            
             
              
