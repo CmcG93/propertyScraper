@@ -7,15 +7,18 @@
 # useful for handling different item types with a single interface
 from itemadapter import ItemAdapter
 
-
 class PropertyscraperPipeline:
     def process_item(self, item, spider):
 
         adapter = ItemAdapter(item)
 
         #removing all the whitespace from returned data and removing \n's
+        remove = ("\n")
         propertyFieldName = adapter.field_names()
         for fieldName in propertyFieldName:
             value = adapter.get(fieldName)
-            adapter[fieldName] = value.strip().replace("\n", "")
+            if remove not in fieldName:
+                pass
+            else:
+                adapter[fieldName] = value.strip().replace("\n", "")
         return item

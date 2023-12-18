@@ -12,13 +12,6 @@ BOT_NAME = "propertyScraper"
 SPIDER_MODULES = ["propertyScraper.spiders"]
 NEWSPIDER_MODULE = "propertyScraper.spiders"
 
-FEEDS = {
-    '../data/propertyData.xlsx' : {
-        "format": "xlsx", 
-        "overwrite" : True,
-        }
-}
-
 FEED_EXPORTERS = {
     'xlsx': 'scrapy_xlsx.XlsxItemExporter',
 }

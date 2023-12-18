@@ -2,10 +2,17 @@ import scrapy
 from propertyScraper.items import PropertyItemWebOneRent
 
 
-class PropertyspiderSpider(scrapy.Spider):
-    name = "propertySpider"
-    allowed_domains = ["www.property.ie", "www.daft.ie"]
-    # can add multipe URL's here for spider to crawl through
+class RentspiderSpider(scrapy.Spider):
+    custom_settings = {
+    'FEEDS' : {
+        '../data/rentData.xlsx' : {
+            'format': 'xlsx',
+            'overwrite' : True
+            }
+        }
+    }
+    name = "rentSpider"
+    allowed_domains = ["www.property.ie"]
     start_urls = ["https://www.property.ie/property-to-let/property-to-let/ireland/"]
 
     def parse(self, response):
