@@ -1,6 +1,5 @@
-from propertyScraper.spiders.propertySpider import PropertyspiderSpider
 from propertyScraper.spiders.rentSpider import RentspiderSpider
-from propertyScraper.spiders.propertySpider import PropertyspiderWebTwoSpider
+from propertyScraper.spiders.rentSpider import RentspiderWebTwoSpider
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 import pandas as pd
@@ -11,7 +10,7 @@ def main():
     process = CrawlerProcess(settings)
 
     # List of spiders to crawl
-    spiders = [PropertyspiderSpider, PropertyspiderWebTwoSpider]
+    spiders = [RentspiderSpider, RentspiderWebTwoSpider]
 
     for spider in spiders:
         spiderName = spider.name
@@ -29,9 +28,9 @@ def main():
     combineExcelFiles()
 
 def combineExcelFiles():
-    Data_WebOne = '../propertyScraper/data/propertyData_WebOne.xlsx'
-    Data_WebTwo = '../propertyScraper/data/propertyData_WebTwo.xlsx'
-    outputCombined = '../data/Properties for sale Ireland.xlsx'
+    Data_WebOne = '../propertyScraper/data/rentData_WebOne.xlsx'
+    Data_WebTwo = '../propertyScraper/data/rentData_WebTwo.xlsx'
+    outputCombined = '../data/Properties for rent Ireland.xlsx'
 
     if os.path.exists(Data_WebOne) and os.path.exists(Data_WebTwo):
         dataFrameOne = pd.read_excel(Data_WebOne)
