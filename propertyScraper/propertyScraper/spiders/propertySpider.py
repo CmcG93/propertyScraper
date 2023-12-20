@@ -25,18 +25,11 @@ class PropertyspiderSpider(scrapy.Spider):
             propertyItem["url"] = property.css("h2 a").attrib['href']
             yield propertyItem
 
-        totalPagesHtml = response.css('#pages > a:nth-child(9) ::text').get()
-        totalPages = int(totalPagesHtml)
-
-        next_page = response.css('#pages > a:nth-child(10) ::attr(href)').get()
-
-        for pageNumber in range(totalPages):
-            ++pageNumber
-            if next_page is not None:
-                next_page_url = "https://www.property.ie/property-for-sale/ireland/price_international_rental-onceoff_standard/p_" + str(pageNumber)
-            else:
-                break
+        next_page_url = response.xpath('//a[contains(text(), "Next")]/@href').get()
+        if next_page_url:
             yield response.follow(next_page_url, callback=self.parse)
+        else:
+            self.logger.debug("No more pages to follow")
 
 class PropertyspiderWebTwoSpider(scrapy.Spider):
     custom_settings = {
