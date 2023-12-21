@@ -9,13 +9,13 @@ class PropertyscraperItem(scrapy.Item):
     name = scrapy.Field()
     pass
 
-class PropertyItemWebOneSale(scrapy.Item):
+class PropertyItemWebForSale(scrapy.Item):
     address = scrapy.Field()
     price = scrapy.Field()
     amenities = scrapy.Field()
     url = scrapy.Field()
 
-class PropertyItemWebOneRent(scrapy.Item):
+class PropertyItemWebForRent(scrapy.Item):
     address = scrapy.Field()
     price = scrapy.Field()
     amenities = scrapy.Field()

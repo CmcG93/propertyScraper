@@ -1,5 +1,5 @@
 import scrapy
-from propertyScraper.items import PropertyItemWebOneRent
+from propertyScraper.items import PropertyItemWebForRent
 
 class RentspiderSpider(scrapy.Spider):
     custom_settings = {
@@ -16,7 +16,7 @@ class RentspiderSpider(scrapy.Spider):
 
     def parse(self, response):
         properties = response.css('div.search_result')
-        propertyItem = PropertyItemWebOneRent()
+        propertyItem = PropertyItemWebForRent()
         
         for property in properties:
             propertyItem["address"] = property.css("h2 a::text").get()
@@ -55,7 +55,7 @@ class RentspiderWebTwoSpider(scrapy.Spider):
         properties = response.xpath('//a[contains(@href, "/for-rent/")]/@href').getall()        
         for property in properties:
             listingUrl = "https://www.daft.ie" + property
-            propertyItem = PropertyItemWebOneRent()
+            propertyItem = PropertyItemWebForRent()
             propertyItem["url"] = listingUrl
             yield scrapy.Request(listingUrl, callback=self.parseWebsiteTwoInfo, meta={'propertyItem': propertyItem})
         
@@ -66,7 +66,7 @@ class RentspiderWebTwoSpider(scrapy.Spider):
             self.logger.debug("No more pages to follow")
                       
     def parseWebsiteTwoInfo(self, response):
-        propertyItem = response.meta.get('propertyItem', PropertyItemWebOneRent())
+        propertyItem = response.meta.get('propertyItem', PropertyItemWebForRent())
         try:
             priceSelector = response.css('main div:nth-child(3) div div div:nth-child(2) div:nth-child(3) p:nth-child(2) ::text')
             if priceSelector and '€' in priceSelector.get():
