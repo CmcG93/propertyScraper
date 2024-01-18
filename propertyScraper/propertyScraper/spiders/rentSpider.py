@@ -25,11 +25,6 @@ class RentspiderSpider(scrapy.Spider):
             propertyItem["url"] = property.css("h2 a").attrib['href']
             yield propertyItem
 
-        # totalPagesHtml = response.css('#pages > a:nth-child(9) ::text').get()
-        # totalPages = int(totalPagesHtml)
-
-        # next_page = response.css('#pages > a:nth-child(10) ::attr(href)').get()
-
         next_page_url = response.xpath('//a[contains(text(), "Next")]/@href').get()
         if next_page_url:
             yield response.follow(next_page_url, callback=self.parse)
