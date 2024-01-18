@@ -25,11 +25,11 @@ class PropertyspiderSpider(scrapy.Spider):
             propertyItem["url"] = property.css("h2 a").attrib['href']
             yield propertyItem
 
-        # next_page_url = response.xpath('//a[contains(text(), "Next")]/@href').get()
-        # if next_page_url:
-        #     yield response.follow(next_page_url, callback=self.parse)
-        # else:
-        #     self.logger.debug("No more pages to follow")
+        next_page_url = response.xpath('//a[contains(text(), "Next")]/@href').get()
+        if next_page_url:
+            yield response.follow(next_page_url, callback=self.parse)
+        else:
+            self.logger.debug("No more pages to follow")
 
 class PropertyspiderWebTwoSpider(scrapy.Spider):
     custom_settings = {
@@ -57,13 +57,13 @@ class PropertyspiderWebTwoSpider(scrapy.Spider):
             propertyItem["url"] = listingUrl
             yield scrapy.Request(listingUrl, callback=self.parseWebsiteTwoPrice, meta={'propertyItem': propertyItem})
         
-        # pageIndex = 1008
-        # #is this needed as properties is already 25
-        # if len(properties) == 25:
-        #     for pageNumber in range(24,pageIndex,24):
-        #         if pageNumber < pageIndex:
-        #             next_page_url = 'https://www.rightmove.co.uk/overseas-property-for-sale/Ireland.html?index={nextPage}'.format(nextPage=pageNumber)
-        #             yield response.follow(next_page_url, callback=self.parse)
+        pageIndex = 1008
+        #is this needed as properties is already 25
+        if len(properties) == 25:
+            for pageNumber in range(24,pageIndex,24):
+                if pageNumber < pageIndex:
+                    next_page_url = 'https://www.rightmove.co.uk/overseas-property-for-sale/Ireland.html?index={nextPage}'.format(nextPage=pageNumber)
+                    yield response.follow(next_page_url, callback=self.parse)
 
     def parseWebsiteTwoPrice(self, response):
         propertyItem = response.meta.get('propertyItem', PropertyItemWebForSale())
@@ -86,7 +86,7 @@ class PropertyspiderWebThreeSpider(scrapy.Spider):
 
     def parse(self, response):
         self.logger.debug(f"Scraping page: {response.url}")
-        #getting all url's that have "/for-rent/" as they are the only required.
+        #getting all url's that have "/for-sale/" as they are the only required.
         properties = response.xpath('//a[contains(@href, "/for-sale/")]/@href').getall()        
         for property in properties:
             listingUrl = "https://www.daft.ie" + property
@@ -94,11 +94,11 @@ class PropertyspiderWebThreeSpider(scrapy.Spider):
             propertyItem["url"] = listingUrl
             yield scrapy.Request(listingUrl, callback=self.parseWebsiteThreeInfo, meta={'propertyItem': propertyItem})
         
-        # next_page_url = response.xpath('//a[contains(text(), "Next")]/@href').get()
-        # if next_page_url:
-        #     yield response.follow(next_page_url, callback=self.parse)
-        # else:
-        #     self.logger.debug("No more pages to follow")
+        next_page_url = response.xpath('//a[contains(text(), "Next")]/@href').get()
+        if next_page_url:
+            yield response.follow(next_page_url, callback=self.parse)
+        else:
+            self.logger.debug("No more pages to follow")
                       
     def parseWebsiteThreeInfo(self, response):
         propertyItem = response.meta.get('propertyItem', PropertyItemWebForSale())

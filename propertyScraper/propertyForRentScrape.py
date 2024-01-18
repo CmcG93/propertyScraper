@@ -3,6 +3,7 @@ from propertyScraper.spiders.rentSpider import RentspiderWebTwoSpider
 from scrapy.crawler import CrawlerProcess
 from scrapy.utils.project import get_project_settings
 import pandas as pd
+from openpyxl import Workbook
 import os
 
 def main():
@@ -38,11 +39,27 @@ def combineExcelFiles():
 
         combinedDataFrames = pd.concat([dataFrameOne, dataFrameTwo], ignore_index=True)
 
-        # Write the combined DataFrame to a new Excel file
-        combinedDataFrames.to_excel(outputCombined, index=False)
+         # Remove duplicates based on the "address" column
+        combinedDataFrames = combinedDataFrames.drop_duplicates(subset='address', keep='first')
+
+        # Write the combined DataFrame to a new Excel file 
+        with pd.ExcelWriter(outputCombined, engine='openpyxl', mode='w') as writer:
+            combinedDataFrames.to_excel(writer, index=False, sheet_name='Properties For Rent')
+
+            worksheet = writer.sheets['Properties For Rent']
+            #adjusting the width of the columns for better readability
+            for column in worksheet.columns:
+                max_length = 0
+                column = [cell for cell in column]
+                try:
+                    max_length = max(len(str(cell.value)) for cell in column)
+                    adjusted_width = (max_length + 1)
+                    worksheet.column_dimensions[column[0].column_letter].width = adjusted_width
+                except (TypeError, AttributeError):
+                    pass
+
         print("Files combined successfully.")
     else:
         print("One or both input files do not exist.")
-
 if __name__ == "__main__":
     main()
