@@ -19,6 +19,9 @@ class RentspiderSpider(scrapy.Spider):
         propertyItem = PropertyItemWebForRent()
         
         for property in properties:
+            county = property.css("h2 a::text").get().split(",")
+            # Set the last item in the county list as the "county" field
+            propertyItem["county"] = county[-1]
             propertyItem["address"] = property.css("h2 a::text").get()
             propertyItem["price"] = property.css("h3 ::text").get()
             propertyItem["amenities"] = property.css("h4 ::text").get()
@@ -72,14 +75,22 @@ class RentspiderWebTwoSpider(scrapy.Spider):
                 if fallbackPriceSelector and '€' in fallbackPriceSelector.get():
                     propertyItem["price"] = fallbackPriceSelector.get()
                 else:
-                    # Both selectors failed or didn't contain the Euro symbol, set price to None or handle as needed
-                    propertyItem["price"] = None
+                    # Both selectors failed or didn't contain the Euro symbol, set price to message
+                    propertyItem["price"] = "Data not able to be retrieved"
 
             # Extract other data
             amenities = response.xpath("//main/div[3]/div[1]/div[1]/div/div[2]/div[2]//text()").getall()
             fullAmenityList = ", ".join(amenities)
             propertyItem["address"] = response.css("h1 ::text").get()
+            county = response.css("h1 ::text").get().split(",")
+            propertyItem["county"] = county[-1]
             propertyItem["amenities"] = fullAmenityList
+
+            # Check if amenities is blank, and if so, set a specific message
+            if not amenities:
+                propertyItem["amenities"] = "Data not able to be retrieved"
+            else:
+                propertyItem["amenities"] = fullAmenityList
 
             # Check if the address is None, and if so, skip the entire item
             if propertyItem["address"] is None:
