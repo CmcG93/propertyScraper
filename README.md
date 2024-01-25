@@ -1,1 +1,2 @@
-# propertyScraper
+The aim of the project was to develop a desktop application using the Python programming language to “scrape” Irish property websites, convert the results and parse them into an excel spreadsheet for the user to view at their discretion.
+The idea behind the application is to reduce the time it takes going through multiple websites for properties since it can be very time consuming going between the websites in the attempt to find a suitable property. When triggered the application will run in the background scraping the property websites and give the user the “scraped” information in an easy-to-read spreadsheet.
