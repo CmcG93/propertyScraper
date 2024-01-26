@@ -10,8 +10,9 @@ from email.mime.text import MIMEText
 from email.mime.multipart import MIMEMultipart
 from dotenv import load_dotenv
 
-class Gui:
+class GUI:
     def __init__(self, master):
+        #os.system("cd ../venv ; .\Scripts\activate ; cd ../propertyScraper")
         self.master = master
         master.title("Irish Property Scraper - TO RENT")
         master.geometry("400x350")  # Set the size of the window
@@ -126,6 +127,7 @@ def combineExcelFiles():
         print("One or both input files do not exist.")
 
 def sendEmail(name, email):
+    load_dotenv()
     # Email configuration
     smtpServer = 'smtp-mail.outlook.com'
     smtpPort = 587
@@ -161,5 +163,5 @@ def sendEmail(name, email):
 
 if __name__ == "__main__":
     root = Tk()
-    gui = Gui(root)
+    gui = GUI(root)
     root.mainloop()
