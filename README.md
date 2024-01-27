@@ -1,11 +1,10 @@
 The aim of the project was to develop a desktop application using the Python programming language to “scrape” Irish property websites, convert the results and parse them into an excel spreadsheet for the user to view at their discretion.
 The idea behind the application is to reduce the time it takes going through multiple websites for properties since it can be very time consuming going between the websites in the attempt to find a suitable property. When triggered the application will run in the background scraping the property websites and give the user the “scraped” information in an easy-to-read spreadsheet that is emailed to their desired email address.
 
-
 Steps to run:
 1. Create a .env file in the outermost section and add a valid email address and password to send the emails from. 
    The variable names have to be SMTP_USERNAME and SMTP_PASSWORD to be able to have the program run correctly.
-2. Create a new terminal Window in propertyScraper folder.
+2. Create a new terminal in the propertyScraper folder.
 3. Run "cd ../venv ; .\Scripts\activate ; cd ../propertyScraper" in the terminal to activate the Virtual environment.
 4. Run python .\propertyForRentScrape.py in the terminal to get Rented properties.
 5. Run python .\propertyForSaleScrape.py in the terminal to get For Sale properties.
