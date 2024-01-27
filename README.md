@@ -4,12 +4,12 @@ The idea behind the application is to reduce the time it takes going through mul
 
 Steps to run:
 
-1- Create a .env file in the outermost section and add a valid email address and password to send the emails from. 
+- 1. Create a .env file in the outermost section and add a valid email address and password to send the emails from. 
    The variable names have to be SMTP_USERNAME and SMTP_PASSWORD to be able to have the program run correctly.
-2- Create a new terminal Window in propertyScraper.
-3- Run "cd ../venv ; .\Scripts\activate ; cd ../propertyScraper" in the terminal to activate the Virtual environment.
-4- Run python .\propertyForRentScrape.py in the terminal to get Rented properties.
-5- Run python .\propertyForSaleScrape.py in the terminal to get For Sale properties.
+- 2. Create a new terminal Window in propertyScraper.
+- 3. Run "cd ../venv ; .\Scripts\activate ; cd ../propertyScraper" in the terminal to activate the Virtual environment.
+- 4. Run python .\propertyForRentScrape.py in the terminal to get Rented properties.
+- 5. Run python .\propertyForSaleScrape.py in the terminal to get For Sale properties.
 
 *Notes*
 - To do a full scrape can take up to 1 hour to fully complete.
