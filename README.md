@@ -4,10 +4,16 @@ The idea behind the application is to reduce the time it takes going through mul
 Steps to run:
 1. Create a .env file in the outermost section and add a valid email address and password to send the emails from. 
    The variable names have to be SMTP_USERNAME and SMTP_PASSWORD to be able to have the program run correctly.
-2. Create a new terminal in the propertyScraper folder.
-3. Run "cd ../venv ; .\Scripts\activate ; cd ../propertyScraper" in the terminal to activate the Virtual environment.
-4. Run python .\propertyForRentScrape.py in the terminal to get Rented properties.
-5. Run python .\propertyForSaleScrape.py in the terminal to get For Sale properties.
+2. Create a new terminal in the propertyScraper folder should look like this: PS C:\Users\<NAME>\Desktop\propertyScraper-main\
+3. Run "mkdir data" in the termial to create a data folder.
+4. Run "python -m virtualenv venv" to install virtual environment. 
+5. Run "cd venv ; .\Scripts\activate ; cd ../propertyScraper" in the terminal to activate the Virtual environment.
+6. Run "pip install Scrapy" to install scrapy.
+7. Run "pip install pandas" to install pandas.
+8. Run "pip install python-dotenv" to install dotenv.
+9. Run "pip install scrapy-xlsx" to inscall scrapy's xlsx converter.
+10.Run python .\propertyForRentScrape.py in the terminal to get Rented properties.
+11.Run python .\propertyForSaleScrape.py in the terminal to get For Sale properties.
 
 *Notes*
 - To do a full scrape can take up to 1 hour to fully complete.
