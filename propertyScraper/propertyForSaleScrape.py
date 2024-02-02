@@ -163,10 +163,10 @@ def sendEmail(name, email):
         msg.attach(MIMEText(body, "plain", "utf-8"))
 
         # Attach the combined Excel file
-        attachmentPath = "../data/PropertiesForSaleIreland.xlsx"
+        attachmentPath = "../data/Properties for sale Ireland.xlsx"
         with open(attachmentPath, "rb") as attachment:
-            part = MIMEApplication(attachment.read(), Name="PropertiesForSaleIreland.xlsx")
-            part["Content-Disposition"] = f'attachment; filename=PropertiesForSaleIreland.xlsx'
+            part = MIMEApplication(attachment.read(), Name="Properties_for_sale_Ireland.xlsx")
+            part["Content-Disposition"] = f'attachment; filename=Properties for Sale in Ireland.xlsx'
             msg.attach(part)
 
         # Send the email
