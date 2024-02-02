@@ -104,7 +104,7 @@ def combineExcelFiles():
     try:
         dataWebOne = "../propertyScraper/data/propertyData_WebOne.xlsx"
         dataWebTwo = "../propertyScraper/data/propertyData_WebTwo.xlsx"
-        outputCombined = "../data/PropertiesForSaleIreland.xlsx"
+        outputCombined = "../data/Properties for sale Ireland.xlsx"
 
         if os.path.exists(dataWebOne) and os.path.exists(dataWebTwo):
             dataFrameOne = pd.read_excel(dataWebOne)
