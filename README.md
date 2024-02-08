@@ -31,3 +31,4 @@ Steps to run:
 - If an error occurs after the program has been working where it fails to send an email the email account might have ben flagged check if the
   account needs re-activation.
 
+![UML](https://github.com/CmcG93/propertyScraper/assets/131525742/90051f46-cfb4-4d03-970e-faa180beb012)
